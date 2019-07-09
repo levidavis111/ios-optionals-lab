@@ -15,12 +15,36 @@ Write 3 different ways of safely unwrapping and printing the value of `userName`
 
 - Method three: Nil coalescing
 
+var userName: String?
+
+if userName != nil {
+print(userName!)
+}
+
+if let userName = userName {
+print(userName)
+}
+
+var unwrappedUserName = userName ?? "No name"
+
+print(unwrappedUserName)
+
+
 
 ## Question 2
 
 Given optional string `backgroundColor`, write code that safely unwraps and prints it. If backgroundColor is nil, give it a value.
 
 `var backgroundColor: String?`
+
+var backgroundColor: String? = "blue"
+if let backgroundColor = backgroundColor {
+print(backgroundColor)
+} else {
+backgroundColor = "green"
+print(backgroundColor!)
+}
+
 
 
 ## Question 3
@@ -32,6 +56,16 @@ var width: Double?
 var height: Double?
 ```
 
+var width: Double? = 2
+var height: Double? = 5
+
+if let width = width,
+let height = height {
+print(width * height)
+} else {
+print("error")
+}
+
 
 ## Question 4
 
@@ -42,6 +76,24 @@ var name: String?
 var age: Int?
 var height: Double?
 ```
+var name: String? = "Levi"
+var age: Int? = 38
+var height: Double? = 6.4
+
+if let name = name {
+if let age = age {
+if let height = height {
+print("\(name) is \(age) years old and \(height) tall.")
+} else {
+print("error")
+}
+} else {
+print("error")
+}
+} else {
+print("error")
+}
+
 
 
 ## Question 5
@@ -54,12 +106,24 @@ var middleName: String?
 var lastName: String = "Stone"
 ```
 
+var firstName: String = "Johnny"
+var middleName: String? = "the"
+var lastName: String = "Stone"
+var fullName = "\(firstName) \(middleName!) \(lastName)"
+
 
 ## Question 6
 
 Write code that adds 15 to `myIntString`, then prints the sum. Use the `Int()` constructor which returns an optional Int `(Int?)`.
 
 `let myIntString = "35"`
+
+let myIntString = "35"
+var integerVersion = Int(myIntString)
+
+if let integerVersion = integerVersion {
+print(integerVersion + 15)
+}
 
 
 ## Question 7
@@ -85,6 +149,16 @@ if Bool.random() {
  tuple = (5, 3)
 }
 ```
+var tuple: (Int, Int)?
+if Bool.random() {
+tuple = (5, 3)
+}
+if let tuple = tuple {
+print(tuple)
+}
+else {
+print("error")
+}
 
 
 ## Question 9
@@ -98,6 +172,19 @@ if Bool.random() {
 }
 ```
 
+var myInt: Int?
+
+if Bool.random() {
+myInt = 5
+}
+
+if let myInt = myInt {
+print(myInt * 2)
+}
+else {
+print("error")
+}
+
 
 ## Question 10
 
@@ -109,6 +196,20 @@ let doubleTwo: Double = 5
 
 if Bool.random() {
  myDouble = 12
+}
+
+var myDouble: Double?
+let doubleTwo: Double = 5
+
+if Bool.random() {
+myDouble = 12
+}
+
+if let myDouble = myDouble {
+print(myDouble + doubleTwo)
+}
+else {
+print("error")
 }
 ```
 
@@ -124,6 +225,15 @@ if Bool.random() {
  isTheGreatest = true
 }
 ```
+
+var isTheGreatest: Bool?
+
+if Bool.random() {
+isTheGreatest = true
+}
+var unwrappedIsTheGreatest = isTheGreatest ?? false
+
+print(unwrappedIsTheGreatest)
 
 
 ## Question 12
@@ -209,6 +319,22 @@ if Bool.random() {
 }
 ```
 
+var numberOfPeople: Int?
+
+if Bool.random() {
+numberOfPeople = 108
+}
+
+
+if let numberOfPeople = numberOfPeople {
+if numberOfPeople % 2 == 0 {
+print(numberOfPeople)
+}
+} else {
+print("error")
+}
+
+
 
 ## Question 15
 
@@ -221,6 +347,19 @@ for i in 0..<20 {
     someNumbers.append(Bool.random() ? i : nil)
 }
 ```
+var someNumbers: [Int?] = []
+var sum = 0
+
+for i in 0..<20 {
+someNumbers.append(Bool.random() ? i : nil)
+}
+
+for i in someNumbers {
+if i != nil {
+sum += Int(i!)
+}
+}
+print(sum)
 
 
 ## Question 16
@@ -232,6 +371,22 @@ let poorlyFormattedCityNames: [String?] = ["new york", "BOSTON", nil, "chicago",
 
 Output: ["New York", "Boston", "Chicago", "Los Angeles", "Dallas"]
 ```
+
+let poorlyFormattedCityNames: [String?] = ["new york", "BOSTON", nil, "chicago", nil, "los angeles", nil, "Dallas",]
+var emptyArray: [String] = []
+var finalArray: [String] = []
+
+
+for i in poorlyFormattedCityNames{
+if i != nil {
+emptyArray.append(i!.lowercased())
+}
+}
+
+for i in emptyArray {
+finalArray.append(i.capitalized)
+}
+print(finalArray)
 
 
 ## Question 17
@@ -246,12 +401,35 @@ for _ in 0..<20 {
 }
 ```
 
+var aBunchOfNumbers: [Int?] = []
+var aNewArray: [Int] = []
+
+for _ in 0..<20 {
+aBunchOfNumbers.append(Bool.random() ? Int(arc4random_uniform(102)) : nil)
+}
+
+for i in aBunchOfNumbers where i != nil {
+if i! % 2 == 0 {
+aNewArray.append(i!)
+}
+}
+print(aNewArray)
+
 
 ## Question 18
 
 Given the following array of zip codes as strings, write code that turns them into an array of Ints.
 
 `let zipCodeStrings = ["11377", "11101", "11373", "10014", "10003", "11223"]`
+
+let zipCodeStrings = ["11377", "11101", "11373", "10014", "10003", "11223"]
+var zipCodeInts: [Int] = []
+
+for i in zipCodeStrings {
+let intergerVersion = Int(i)
+zipCodeInts.append(intergerVersion!)
+}
+print(zipCodeInts)
 
 
 ## Question 19
@@ -266,6 +444,28 @@ Some students were asked some questions about their favorite foods and colors an
 
 `let studentInfo: [(String, String?, String?)] = [("Bill", "Burgers", "Blue"), ("Rita", nil, "Red"), ("Peter", "Pizza", "Purple"), ("Sarah", "Sandwiches", nil), ("Jeff", nil, nil), ("Lucy", "Leftovers", "Lilac"), ("Mike", "Meat", "Mauve"), ("Gemma", nil, "Green")]`
 
+
+let studentInfo: [(String, String?, String?)] = [("Bill", "Burgers", "Blue"), ("Rita", nil, "Red"), ("Peter", "Pizza", "Purple"), ("Sarah", "Sandwiches", nil), ("Jeff", nil, nil), ("Lucy", "Leftovers", "Lilac"), ("Mike", "Meat", "Mauve"), ("Gemma", nil, "Green")]
+var newArray: [String] = []
+
+for i in studentInfo {
+if i.2 == nil {
+print(i.0)
+}
+}
+
+for i in studentInfo {
+if i.1 == nil || i.2 == nil {
+print(i.0)
+}
+}
+
+for i in studentInfo {
+if i.1 != nil && i.2 != nil {
+newArray.append(i.0)
+}
+}
+print(newArray)
 
 ## Question 20
 
@@ -288,6 +488,22 @@ Consider the following nested optional. It corresponds to a number inside a box 
 
 `let number: Int??? = 10`
 
+let number: Int??? = 10
+
+print(number!!!)
+
+if let number = number {
+if let number = number {
+if let number = number {
+print(number)
+}
+}
+}
+else {
+print("error")
+}
+
+
 
 ## Question 22
 
@@ -297,9 +513,58 @@ Given an Array of Optional Strings, write code that concatenates all non-nil val
 
 output: `"apesmonkeyslemurs"`
 
+let monkeyingAround = ["orangutan", "apes",nil, "monkeys", "gorillas", "lemurs", nil]
+let vowels = "aeiou"
+var newArray: [String] = []
+var string = ""
+var counter = 0
+
+
+for i in monkeyingAround {
+if i != nil {
+newArray.append(i!)
+}
+}
+//print(newArray)
+
+for i in newArray {
+for j in i {
+if j == "a" || j == "e" || j == "i" || j == "o" || j == "u" {
+counter += 1
+}
+}
+if counter < 3 {
+string += "\(i)"
+}
+counter = 0
+}
+print(string)
+
 
 ## Question 23
 
 Given the value below, print out all of the non-nil Ints it contains by accessing each of them.
 
 `var strangeStructure: ([Int]?, [[Int?]], [[Int]?], Int)? = ([1], [[2,3,4],[],[5,nil],[nil]], [nil, [6,7,8],nil,[],[9]], 10)`
+
+
+var strangeStructure: ([Int]?, [[Int?]], [[Int]?], Int)? = ([1], [[2,3,4],[],[5,nil],[nil]], [nil, [6,7,8],nil,[],[9]], 10)
+
+print(strangeStructure!.0!)
+
+for i in strangeStructure!.1 {
+for j in i {
+if j != nil {
+print(j!)
+}
+}
+}
+for i in strangeStructure!.2 {
+if i != nil {
+for j in i! {
+print(j)
+}
+}
+}
+
+print(strangeStructure!.3)
